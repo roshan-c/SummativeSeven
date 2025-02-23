@@ -1,0 +1,14 @@
+C:\Users\Gary\Documents\SummativeSeven\SummativeSeven\obj\Debug\net7.0\SummativeSeven.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Gary\Documents\SummativeSeven\SummativeSeven\obj\Debug\net7.0\SummativeSeven.AssemblyInfoInputs.cache
+C:\Users\Gary\Documents\SummativeSeven\SummativeSeven\obj\Debug\net7.0\SummativeSeven.AssemblyInfo.cs
+C:\Users\Gary\Documents\SummativeSeven\SummativeSeven\obj\Debug\net7.0\SummativeSeven.csproj.CoreCompileInputs.cache
+C:\Users\Gary\Documents\SummativeSeven\SummativeSeven\bin\Debug\net7.0\SummativeSeven.exe
+C:\Users\Gary\Documents\SummativeSeven\SummativeSeven\bin\Debug\net7.0\SummativeSeven.deps.json
+C:\Users\Gary\Documents\SummativeSeven\SummativeSeven\bin\Debug\net7.0\SummativeSeven.runtimeconfig.json
+C:\Users\Gary\Documents\SummativeSeven\SummativeSeven\bin\Debug\net7.0\SummativeSeven.dll
+C:\Users\Gary\Documents\SummativeSeven\SummativeSeven\bin\Debug\net7.0\SummativeSeven.pdb
+C:\Users\Gary\Documents\SummativeSeven\SummativeSeven\obj\Debug\net7.0\SummativeSeven.dll
+C:\Users\Gary\Documents\SummativeSeven\SummativeSeven\obj\Debug\net7.0\refint\SummativeSeven.dll
+C:\Users\Gary\Documents\SummativeSeven\SummativeSeven\obj\Debug\net7.0\SummativeSeven.pdb
+C:\Users\Gary\Documents\SummativeSeven\SummativeSeven\obj\Debug\net7.0\SummativeSeven.genruntimeconfig.cache
+C:\Users\Gary\Documents\SummativeSeven\SummativeSeven\obj\Debug\net7.0\ref\SummativeSeven.dll
