@@ -7,11 +7,11 @@ class Program
     {
         Console.WriteLine("Hello, Mini Heroes Quest!");
         
-        // Initialize list of characters
+        // initialize list of characters
         List<Character> characters = new List<Character>();
         Character playerCharacter = null;
         
-        // Let the user select their character class
+        // let the user select their character class
         Console.WriteLine("Select your character class:");
         Console.WriteLine("1. Ranger");
         Console.WriteLine("2. Barbarian");
@@ -24,7 +24,7 @@ class Program
             Console.WriteLine("Invalid choice. Please enter a number between 1 and 4:");
         }
         
-        // Create player character based on selection with predefined names
+        // create player character based on selection with predefined names
         switch (characterChoice)
         {
             case 1:
@@ -47,22 +47,22 @@ class Program
         
         characters.Add(playerCharacter);
         
-        // Create CPU characters (one of each remaining class)
-        if (!(playerCharacter is Ranger)) characters.Add(new Ranger("Robin"));
-        if (!(playerCharacter is Barbarian)) characters.Add(new Barbarian("Bjorn"));
-        if (!(playerCharacter is Mage)) characters.Add(new Mage("Merlin"));
-        if (!(playerCharacter is Titan)) characters.Add(new Titan("Thanos"));
+        // create cpu characters (one of each remaining class)
+        if (!(playerCharacter is Ranger)) characters.Add(new Ranger("John"));
+        if (!(playerCharacter is Barbarian)) characters.Add(new Barbarian("Susan"));
+        if (!(playerCharacter is Mage)) characters.Add(new Mage("Richard"));
+        if (!(playerCharacter is Titan)) characters.Add(new Titan("Crayon"));
         
-        // Game turn
+        // game turn
         Console.WriteLine("\n--- BATTLE BEGINS ---\n");
         
-        // Display status of all characters
+        // display status of all characters
         DisplayCharacterStatus(characters);
         
-        // Player's turn
+        // player's turn
         Console.WriteLine($"\n--- {playerCharacter.Name}'s Turn (Player) ---");
         
-        // Let player choose an action based on their class
+        // let player choose an action based on their class
         List<string> actionOptions = new List<string>();
         
         if (playerCharacter is Ranger)
@@ -104,25 +104,25 @@ class Program
         
         string selectedAction = actionOptions[actionChoice - 1];
         
-        // For actions that need a target
+        // for actions that need a target
         Character target = null;
         if (selectedAction == "Fire Arrow" || selectedAction == "Swing Axe" || 
             selectedAction == "Throw Fireball" || selectedAction == "Heal" || 
             selectedAction == "Crush")
         {
-            // Get available targets (all characters except self for attacks, include self for heal)
+            // get available targets (all characters except self for attacks, include self for heal)
             List<Character> targets = new List<Character>();
             
             foreach (Character c in characters)
             {
                 if (selectedAction == "Heal")
                 {
-                    // For healing, include all characters (including self)
+                    // for healing, include all characters (including self)
                     targets.Add(c);
                 }
                 else
                 {
-                    // For attacks, only include other characters
+                    // for attacks, only include other characters
                     if (c != playerCharacter) targets.Add(c);
                 }
             }
@@ -142,10 +142,10 @@ class Program
             target = targets[targetChoice - 1];
         }
         
-        // Execute the player's action
+        // execute the player's action
         ExecutePlayerAction(playerCharacter, selectedAction, target, characters.ToArray());
         
-        // CPU characters' turns
+        // cpu characters' turns
         foreach (Character cpu in characters)
         {
             if (cpu != playerCharacter && !cpu.IsKnockedOut)
@@ -155,7 +155,7 @@ class Program
             }
         }
         
-        // Show final status
+        // show final status
         Console.WriteLine("\n--- TURN COMPLETE ---");
         DisplayCharacterStatus(characters);
         
@@ -254,10 +254,10 @@ class Program
     
     static void ExecuteCpuAction(Character cpu, List<Character> characters)
     {
-        // Simple AI for CPU characters
+        // simple ai for cpu characters
         Random random = new Random();
         
-        // Find characters that aren't knocked out (excluding self)
+        // find characters that aren't knocked out (excluding self)
         List<Character> potentialTargets = new List<Character>();
         List<Character> alliesNeedingHealing = new List<Character>();
         
@@ -268,14 +268,14 @@ class Program
                 potentialTargets.Add(c);
             }
             
-            // For mage healing - find allies (including self) below 50% health
+            // for mage healing - find allies (including self) below 50% health
             if (!c.IsKnockedOut && c.HealthPoints < c.MaxHealthPoints / 2)
             {
                 alliesNeedingHealing.Add(c);
             }
         }
         
-        // If no valid targets, rest
+        // if no valid targets, rest
         if (potentialTargets.Count == 0 && (!(cpu is Mage) || alliesNeedingHealing.Count == 0))
         {
             cpu.Rest();
@@ -283,22 +283,22 @@ class Program
             return;
         }
         
-        // CPU actions based on character type
+        // cpu actions based on character type
         if (cpu is Ranger ranger)
         {
-            // If out of arrows, collect them
+            // if out of arrows, collect them
             if (ranger.NumberOfArrows == 0)
             {
                 ranger.CollectArrows();
                 Console.WriteLine($"{ranger.Name} collected their arrows.");
             }
-            // If energy is low, rest
+            // if energy is low, rest
             else if (ranger.EnergyPoints < 1)
             {
                 ranger.Rest();
                 Console.WriteLine($"{ranger.Name} rests and recovers their energy and health.");
             }
-            // Otherwise, attack a random target
+            // otherwise, attack a random target
             else if (potentialTargets.Count > 0)
             {
                 Character target = potentialTargets[random.Next(potentialTargets.Count)];
@@ -307,13 +307,13 @@ class Program
         }
         else if (cpu is Barbarian barbarian)
         {
-            // If energy is too low, rest
+            // if energy is too low, rest
             if (barbarian.EnergyPoints < 3)
             {
                 barbarian.Rest();
                 Console.WriteLine($"{barbarian.Name} rests and recovers their energy and health.");
             }
-            // Otherwise, attack a random target
+            // otherwise, attack a random target
             else if (potentialTargets.Count > 0)
             {
                 Character target = potentialTargets[random.Next(potentialTargets.Count)];
@@ -322,19 +322,19 @@ class Program
         }
         else if (cpu is Mage mage)
         {
-            // If there are allies needing healing and enough energy, heal
+            // if there are allies needing healing and enough energy, heal
             if (alliesNeedingHealing.Count > 0 && mage.EnergyPoints >= 1)
             {
                 Character healTarget = alliesNeedingHealing[random.Next(alliesNeedingHealing.Count)];
                 mage.Heal(healTarget);
             }
-            // If energy enough for fireball, attack
+            // if energy enough for fireball, attack
             else if (potentialTargets.Count > 0 && mage.EnergyPoints >= 2)
             {
                 Character target = potentialTargets[random.Next(potentialTargets.Count)];
                 mage.ThrowFireball(target);
             }
-            // Otherwise, rest
+            // otherwise, rest
             else
             {
                 mage.Rest();
@@ -343,26 +343,26 @@ class Program
         }
         else if (cpu is Titan titan)
         {
-            // Randomly choose between available actions based on energy
+            // randomly choose between available actions based on energy
             int choice = random.Next(3);
             
-            // If multiple targets and enough energy, use ground smash
+            // if multiple targets and enough energy, use ground smash
             if (choice == 0 && potentialTargets.Count > 1 && titan.EnergyPoints >= 10)
             {
                 titan.GroundSmash(characters.ToArray());
             }
-            // If health is below 50% and enough energy, regenerate
+            // if health is below 50% and enough energy, regenerate
             else if (choice == 1 && titan.HealthPoints < titan.MaxHealthPoints / 2 && titan.EnergyPoints >= 5)
             {
                 titan.Regenerate();
             }
-            // If energy enough for crush, attack
+            // if energy enough for crush, attack
             else if (potentialTargets.Count > 0 && titan.EnergyPoints >= 6)
             {
                 Character target = potentialTargets[random.Next(potentialTargets.Count)];
                 titan.Crush(target);
             }
-            // Otherwise, rest
+            // otherwise, rest
             else
             {
                 titan.Rest();
@@ -375,7 +375,7 @@ class Program
 // Base Character class for common functionality
 public abstract class Character
 {
-    // Private backing fields for HealthPoints and EnergyPoints
+    // private backing fields for HealthPoints and EnergyPoints
     private int _healthPoints;
     private int _energyPoints;
     
@@ -394,15 +394,15 @@ public abstract class Character
         // Protected setter to allow derived classes to modify health, but with validation
         protected set
         {
-            // Ensure health doesn't drop below 0
+            // ensure health doesn't drop below 0
             if (value <= 0) {
                 _healthPoints = 0;
             } 
-            // Ensure health doesn't exceed the maximum
+            // ensure health doesn't exceed the maximum
             else if (value > MaxHealthPoints) { 
                 _healthPoints = MaxHealthPoints; 
             } 
-            // Otherwise, set the health to the new value
+            // otherwise, set the health to the new value
             else {
                 _healthPoints = value;
             }
@@ -416,15 +416,15 @@ public abstract class Character
         // Protected setter to allow derived classes to modify energy, but with validation
         protected set
         {
-            // Ensure energy doesn't drop below 0
+            // ensure energy doesn't drop below 0
             if (value <= 0) {
                 _energyPoints = 0;
             } 
-            // Ensure energy doesn't exceed the maximum
+            // ensure energy doesn't exceed the maximum
             else if (value > MaxEnergyPoints) { 
                 _energyPoints = MaxEnergyPoints; 
             } 
-            // Otherwise, set the energy to the new value
+            // otherwise, set the energy to the new value
             else {
                 _energyPoints = value;
             }
@@ -438,13 +438,13 @@ public abstract class Character
     protected Character(string name)
     {
         Name = name;
-        InitializeStats(); // Call the InitializeStats method to set up character-specific stats
+        InitializeStats(); // call the initializestats method to set up character-specific stats
     }
     
     // Virtual method to initialize character-specific stats (to be overridden by derived classes)
     protected virtual void InitializeStats()
     {
-        // Base initialization to be overridden by derived classes
+        // base initialization to be overridden by derived classes
     }
     
     // Public method to restore the character's health and energy to their maximum values
@@ -669,7 +669,7 @@ public class Titan : Character
             return;
         }
         
-        int healAmount = 5; // Fixed healing amount
+        int healAmount = 5; // fixed healing amount
         
         EnergyPoints -= 5;
         Console.WriteLine($"{Name} the titan regenerates through sheer willpower!");
